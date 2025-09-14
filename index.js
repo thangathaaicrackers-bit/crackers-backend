@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use(cors({
-  origin: "https://stellar-blini-e60e93.netlify.app/",  // allow only your frontend
+  origin: "https://stellar-blini-e60e93.netlify.app",  // allow only your frontend
   methods: ["GET", "POST", "PUT", "DELETE"],       // adjust if needed
   credentials: true
 }));
