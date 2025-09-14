@@ -16,27 +16,35 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const allowlist = [
-    'http://localhost:5173',
-    'https://stellar-blini-e60e93.netlify.app/',
-    '*'
-];
 
-const corsOptionsDelegate = (req, callback) => {
-    let corsOptions = {
-        methods: ['GET', 'POST', 'PUT', 'DELETE'],
-        credentials: true,
-    };
-    if (allowlist.includes(req.header('Origin'))) {
-        corsOptions.origin = true;
-    } else {
-        corsOptions.origin = false;
-    }
+app.use(cors({
+  origin: "https://stellar-blini-e60e93.netlify.app/",  // allow only your frontend
+  methods: ["GET", "POST", "PUT", "DELETE"],       // adjust if needed
+  credentials: true
+}));
 
-    callback(null, corsOptions);
-};
 
-app.use(cors(corsOptionsDelegate));
+// const allowlist = [
+//     'http://localhost:5173',
+//     'https://stellar-blini-e60e93.netlify.app/',
+//     '*'
+// ];
+
+// const corsOptionsDelegate = (req, callback) => {
+//     let corsOptions = {
+//         methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//         credentials: true,
+//     };
+//     if (allowlist.includes(req.header('Origin'))) {
+//         corsOptions.origin = true;
+//     } else {
+//         corsOptions.origin = false;
+//     }
+
+//     callback(null, corsOptions);
+// };
+
+// app.use(cors(corsOptionsDelegate));
 
 app.use('/api', crackerRoutes);
 app.use('/api', userRoutes);
